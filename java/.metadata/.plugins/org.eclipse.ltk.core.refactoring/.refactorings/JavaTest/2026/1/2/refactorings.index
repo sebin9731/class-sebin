@@ -1,0 +1,11 @@
+1767678088389	Rename type 'Ex_For'
+1767917647847	Encapsulate field 'model, ...'
+1767917683098	Encapsulate field 'model, ...'
+1767917834688	Encapsulate field 'price, ...'
+1767917852463	Encapsulate field 'price, ...'
+1767918049385	Encapsulate field 'color, ...'
+1767918386795	Encapsulate field 'buttons, ...'
+1767921172640	Encapsulate field 'boss, ...'
+1767923014891	Encapsulate field 'nick, ...'
+1767925538609	Extract method 'm1'
+1767929778930	Move compilation unit

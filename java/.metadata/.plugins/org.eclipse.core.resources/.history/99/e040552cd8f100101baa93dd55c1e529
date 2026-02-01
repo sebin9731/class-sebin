@@ -1,0 +1,13 @@
+package com.test.java.collection;
+
+public class Ex62_Anonymous {
+	
+	/*
+
+		익명 클래스, Anonymous Class
+		- 익명 객체, Anonymous Object
+		- 이름 없는 클래스
+
+	*/
+
+}

@@ -1,0 +1,62 @@
+package com.test.java.collection;
+
+import java.util.Hashtable;
+import java.util.Vector;
+
+public class Ex67_Collection {
+	
+	public static void main(String[] args) {
+		
+		/*
+		
+			스레드에 안전(safe) + 동기화 지원
+			- Vector > ArrayList
+			- Hashtable > HashMap
+			- Properties
+		
+		*/
+		
+		m1();
+		
+	}
+
+	private static void m1() {
+		
+		Vector<String> list = new Vector<String>();
+		
+		list.add("하나");
+		list.add("둘");
+		list.add("셋");
+		
+		System.out.println(list.size());
+		System.out.println(list.get(0));
+		
+		
+		Hashtable<String, Integer> map = new Hashtable<String, Integer>();
+		
+		map.put("kor", 100);
+		map.put("eng", 90);
+		map.put("math", 80);
+		
+		System.out.println(map.get("kor"));
+		
+		// 요약
+		// - Vector, Hashtable은 동기화 지원이 되어, 멀티스레드 환경에서 안전하다. 하지만 느리다.
+		// - ArrayList, HashMap은 동기화 지원이 안 되어, 멀티스레드 환경에서 직접 동기화 처리가 필요하다. 속도가 빠르다.
+		
+		
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+

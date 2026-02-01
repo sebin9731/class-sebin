@@ -1,0 +1,30 @@
+package com.test.java.collection;
+
+public class Ex67_Collection {
+	
+	public static void main(String[] args) {
+		
+		/*
+		
+			스레드에 안전(safe) + 동기화 지원
+			- Vector > ArrayList
+			- Hashtable > HashMap
+			- Properties
+			
+		
+		*/
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+

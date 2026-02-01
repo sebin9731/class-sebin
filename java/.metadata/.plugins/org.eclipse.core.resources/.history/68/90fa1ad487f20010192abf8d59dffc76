@@ -1,0 +1,67 @@
+package com.test.java.collection;
+
+public class Ex69_Lambda {
+	
+	public static void main(String[] args) {
+		
+		// 람다식 == 추상 메서드
+		// 람다식 == 추상 메서드의 구현체 == 메서드
+		// - 매개변수 유/무
+		// - 반환값 유/무
+		
+		NoParameterNoReturn pr1 = new NoParameterNoReturn() {
+			
+			@Override
+			public void call() {
+				System.out.println("pr1");
+			}
+		};
+		pr1.call();
+		
+		NoParameterNoReturn pr2 = () -> {
+			System.out.println("pr2");
+		};
+		pr2.call();
+		
+		// *** 람다식 구현부 > 문장 1개 > {} 생략 가능
+		NoParameterNoReturn pr3 = () -> System.out.println("pr3");
+		pr3.call();
+		
+		
+	}
+
+}
+
+interface NoParameterNoReturn {
+	void call();
+}
+
+interface ParameterNoReturn {
+	void call(int n);
+}
+
+interface MultiParameterNoReturn {
+	void call(String name, int age);
+}
+
+interface NoParameterReturn {
+	int call();
+}
+
+interface ParameterReturn {
+	int call(int a, int b);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

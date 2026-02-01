@@ -1,0 +1,5 @@
+package com.test.javs.dto;
+
+public class AddressDto {
+
+}

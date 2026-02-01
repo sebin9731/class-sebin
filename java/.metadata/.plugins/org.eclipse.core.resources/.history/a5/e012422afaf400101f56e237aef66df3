@@ -1,0 +1,44 @@
+package com.test.java.service;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+public class AddressService {
+
+	public void list() {
+		
+		// 주소록 목록 보기
+		try {
+			
+			BufferedReader reader = new BufferedReader(new FileReader(".\\data\\address.txt"));
+			
+			String line = null;
+			
+			while ((line = reader.readLine()) != null) {
+				System.out.println(line);
+			}
+			
+			reader.close();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+	public void add() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void delete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void search() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

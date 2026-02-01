@@ -1,0 +1,26 @@
+package com.test.java.ui;
+
+public class AddressUi {
+	
+	public void mainMenu() {
+		System.out.println("=============================================");
+		System.out.println("                 💩 주소록💩");
+		System.out.println("=============================================");
+		
+		System.out.println("1. 주소록 목록보기");
+		System.out.println("2. 주소록 추가하기");
+		System.out.println("3. 주소록 삭제하기");
+		System.out.println("4. 주소록 검색하기");
+		System.out.println("5. 종료");
+		
+		System.out.print("선택(번호): ");
+	}
+	
+	public static void closeMessage() {
+		System.out.println();
+		System.out.println();
+		System.out.println("😉주소록을 종료합니다.");
+	}
+	
+
+}

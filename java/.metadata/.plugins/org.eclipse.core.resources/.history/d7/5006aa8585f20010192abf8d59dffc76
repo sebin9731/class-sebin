@@ -1,0 +1,12 @@
+package com.test.java.collection;
+
+public class Ex69_Lambda {
+	
+	public static void main(String[] args) {
+		
+		// 람다식 == 추상 메서드
+		
+		
+	}
+
+}

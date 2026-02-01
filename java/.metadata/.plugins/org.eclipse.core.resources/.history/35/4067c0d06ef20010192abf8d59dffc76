@@ -1,0 +1,17 @@
+package com.test.java.collection;
+
+public class Ex64_LinkedList {
+	
+	public static void main(String[] args) {
+		
+		/*
+			
+			List 인터페이스
+			- ArrayList
+			- LinkedList
+			
+		*/
+		
+	}
+
+}

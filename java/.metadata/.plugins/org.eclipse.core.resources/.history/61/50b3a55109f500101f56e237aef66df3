@@ -1,0 +1,98 @@
+package com.test.java.service;
+
+import java.util.List;
+import java.util.Scanner;
+
+import com.test.java.repository.AddressDao;
+import com.test.java.ui.AddressUi;
+import com.test.javs.dto.AddressDto;
+
+public class AddressService {
+	
+	private AddressDao dao;
+	private AddressUi ui;
+	
+	public AddressService() {
+		dao = new AddressDao();
+		ui = new AddressUi();
+	}
+
+	public void list() {
+		
+		// 주소록 목록 보기
+		
+		
+		List<AddressDto> list = dao.list();
+		
+		ui.printList(list);
+			
+	}
+	
+	public void add() {
+		
+		// 주소록 추가하기
+		// - 파일 쓰기 > AddressDao 위임
+		
+		// 사용자 입력 > (전달) > Dao + 파일 쓰기
+		ui.subMenu("2. 주소록 목록보기");
+		
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("이름: ");
+		String name = scan.nextLine();
+		
+		System.out.print("나이: ");
+		String age = scan.nextLine();
+		
+		System.out.print("성별(남자(1), 여자(2)): ");
+		String gender = scan.nextLine();
+		
+		System.out.print("주소: ");
+		String address = scan.nextLine();
+		
+		System.out.print("전화: ");
+		String tel = scan.nextLine();
+		
+		// *** 권장 사항
+		// - 계층과 계층 간에 데이터를 전달할 때 > 되도록 상자에 담아서 넘겨라
+		
+		AddressDto dto = new AddressDto();
+		
+		dto.setName(name);
+		dto.setAge(age);
+		dto.setGender(gender);
+		dto.setTel(tel);
+		dto.setAddress(address);
+		
+		dao.add(dto);
+		
+		ui.completeMessage("😉주소록을 추가했습니다.");
+		
+		
+		
+	}
+
+	public void delete() {
+		
+		// 주소록 삭제하기
+		// 사용자 입력(이름) > 파일에서 해당 정보를 삭제하기
+		
+		ui.subMenu("3. 주소록 삭제하기");
+		
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("이름: ");
+		String name = scan.nextLine();
+		
+		dao.delete(name);
+		
+		ui.completeMessage("😉주소록을 삭제했습니다.");
+		
+		
+	}
+
+	public void search() {
+		
+	}
+
+}

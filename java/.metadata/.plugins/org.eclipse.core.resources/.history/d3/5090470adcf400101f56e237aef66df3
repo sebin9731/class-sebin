@@ -1,0 +1,76 @@
+package com.test.java.obj;
+
+public class Ex72_Record {
+	
+	public static void main(String[] args) {
+		
+		/*
+		
+			Record 자료형
+			- 데이터를 저장하기 위한 목적으로 만든 특별한 클래스
+			- 불변(Immutable) 객체를 생성하는 것이 목적
+			- 생성자, Getter, equals(), HashCode, toString을 컴파일러가 자동 생성
+		
+		
+		*/
+		
+		// 유저 정보 > 클래스
+		
+		
+		
+		m1();
+	}//main
+
+	private static void m1() {
+		
+		// 유저 정보 > 클래스
+		UserClass u1 = new UserClass("hong", "홍길동", 20);
+		System.out.println(u1);
+
+		
+		
+	}
+
+}
+
+
+// *** 읽기 전용 클래스
+// 1. 생성자 > 초기화
+// 2. Getter 구현O, Setter 구현X
+class UerClass {
+	
+	private final String id;
+	private final String name;
+	private final int age;
+	
+	public UerClass(String id, String name, int age) {
+		this.id = id;
+		this.name = name;
+		this.age = age;
+	}
+	
+	public String getId() {
+		return id;
+	}
+	public String getName() {
+		return name;
+	}
+	public int getAge() {
+		return age;
+	}
+};
+
+@Override
+public String toString() {
+	return "UerClass [id=" + id + ", name=" + name + ", age=" + age + "]";
+};
+
+
+// *** 읽기 전용 객체
+// Record 사용
+// - 생성자 구현 O
+// - Getter 구현 O
+// - toString 구현 O
+record UserRecord(String id, String name, int age) {
+	
+};

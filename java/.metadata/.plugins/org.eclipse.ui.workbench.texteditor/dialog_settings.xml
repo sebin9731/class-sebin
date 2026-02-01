@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="java.lang.Class">
+		<item key="replaceBarOpen" value="false"/>
+		<list key="findhistory">
+			<item value="[ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz]+"/>
+			<item value="[abcdefghijklmnopqrstuvwxyz]"/>
+			<item value="01[0169]-[0123456789]?[0123456789][0123456789][0123456789]-[0123456789][0123456789][0123456789][0123456789]"/>
+			<item value="[0123456789][0123456789][0123456789][0123456789][0123456789][0123456789]-[0123456789][0123456789][0123456789][0123456789][0123456789][0123456789][0123456789]"/>
+			<item value="[0123456789]*[02468]"/>
+			<item value="[6574839201]+"/>
+			<item value="[0123456789]+"/>
+			<item value="[홍김최정박]길동"/>
+			<item value="[012]"/>
+			<item value="\[012\]"/>
+			<item value="자?바?코드"/>
+			<item value="홍길?동"/>
+			<item value="a?bc"/>
+			<item value="a\?bc"/>
+			<item value="a..c"/>
+		</list>
+	</section>
+</section>

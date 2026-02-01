@@ -1,0 +1,49 @@
+package com.test.java.repository;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.test.javs.dto.AddressDto;
+
+// 파일 입출력 담당자
+// - DAO(Data Access Object) > 데이터를 직접 조작하는 업무 객체
+public class AddressDao {
+	
+	public List<AddressDto> list() {
+		
+		// addres.txt > (읽기) > 반환
+		try (BufferedReader reader = new BufferedReader(new FileReader(".\\data\\address.txt"))) {
+			
+			String line = null;
+			List<AddressDto> list = new ArrayList<AddressDto>();
+					
+			while ((line = reader.readLine()) != null) {
+				// Raw Data(line)
+				
+				// 파싱(Parsing)
+				String[] temp = line.split(",");
+				
+				// Raw Data > (포장) > AddressDto
+				AddressDto dto = new AddressDto();
+				
+				dto.setName(temp[0]);
+				dto.setAge(temp[1]);
+				dto.setGender(temp[2]);
+				dto.setTel(temp[3]);
+				dto.setAddress(temp[4]);
+				
+				list.add(dto);
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+		
+	}
+
+}

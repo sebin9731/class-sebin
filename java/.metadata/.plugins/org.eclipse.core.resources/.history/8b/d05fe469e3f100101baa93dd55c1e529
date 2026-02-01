@@ -1,0 +1,191 @@
+package com.test.java.collection;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+
+public class EX63_Sort {
+	
+	public static void main(String[] args) {
+		
+		// 정렬, Sort
+		// - 배열, 컬렉션(List 계열)
+		// - 순서가 있는 데이터 집합에 한해서..
+		
+		//m1();
+		m2();
+		
+	}
+
+	private static void m2() {
+		
+		ArrayList<String> names = new ArrayList<String>();
+		
+		names.add("강아지");
+		names.add("타조");
+		names.add("거북이");
+		names.add("독수리");
+		names.add("고양이");
+
+		System.out.println(names);
+		
+		// 오름차순
+		Collections.sort(names);
+		
+		System.out.println(names);
+		
+		
+		// 내림차순
+		Collections.reverse(names); // 순서를 거꾸로 뒤집는 기능
+		
+		System.out.println(names);
+		
+		
+		
+	}
+
+	private static void m1() {
+		
+		// 정렬
+		// - 오름차순, 내림차순
+		// 1. 직접 구현 > 정렬 알고리즘
+		// 2. JDK 제공 기능
+		
+		// 정렬 > 우위 비교를 통해서 자리를 바꾸는 행동
+		
+		// 우위 비교가 가능한 자료형
+		// 1. 숫자
+		// 2. 문자(열) > 문자코드값 > 숫자
+		// 3. 날짜시간 > 타임스태프 > 숫자
+		
+		// 정렬 메서드
+		// - Arrays.sort()
+		// - Collections.sort()
+		
+		// 1.a 숫자 + 배열
+		int[] nums1 = { 1, 5, 3, 2, 4 };
+		
+		System.out.println(Arrays.toString(nums1));
+		
+		// 정렬 > 오름차순 정렬
+		Arrays.sort(nums1);
+		System.out.println(Arrays.toString(nums1));
+		
+		// 1.b 숫자 + 컬렉션
+		ArrayList<Integer> nums2 = new ArrayList<Integer>();
+		
+		nums2.add(1);
+		nums2.add(5);
+		nums2.add(3);
+		nums2.add(4);
+		nums2.add(2);
+		
+		System.out.println(nums2);
+		
+		Collections.sort(nums2);
+		
+		System.out.println(nums2);
+		System.out.println();
+		
+		
+		// 2. 문자열
+		String s1 = "Java";
+		String s2 = "Oracle";
+		
+		//System.out.println(s1 > s2); //X
+		//System.out.println('J' > 'O');
+		System.out.println(s1.compareTo(s2)); // 음수, 양수, 0
+		
+		char c1 = 'A';
+		char c2 = 'F';
+		
+		//System.out.println(c1 > c2);
+		
+		
+		ArrayList<String> names = new ArrayList<String>();
+		
+		names.add("강아지");
+		names.add("타조");
+		names.add("거북이");
+		names.add("독수리");
+		names.add("고양이");
+
+		System.out.println(names);
+		
+		// 버블 정렬, 선택 정렬, 힙 정렬, 퀵 정렬, 삽입 정렬, 머지 정렬
+		
+		// sort() > 퀵 정렬
+		Collections.sort(names);
+		
+		System.out.println(names);
+		System.out.println();
+		
+		
+		// 3. 날짜 시간
+		
+		Calendar d1 = Calendar.getInstance();
+		Calendar d2 = Calendar.getInstance();
+		
+		d2.add(Calendar.MINUTE, 30);
+		
+		//System.out.println(d1 > d2); //X
+		//System.out.println(d1.getTimeInMillis() > d2.getTimeInMillis());
+		
+		System.out.println(d1.compareTo(d2));
+		System.out.println();
+		
+		ArrayList<Calendar> times = new ArrayList<Calendar>();
+		
+		times.add(Calendar.getInstance());
+		times.get(0).add(Calendar.DATE, 0);
+		
+		times.add(Calendar.getInstance());
+		times.get(1).add(Calendar.DATE, -7);
+		
+		times.add(Calendar.getInstance());
+		times.get(2).add(Calendar.DATE, 3);
+		
+		times.add(Calendar.getInstance());
+		times.get(3).add(Calendar.DATE, -2);
+		
+		times.add(Calendar.getInstance());
+		times.get(4).add(Calendar.DATE, 1);
+		
+		for (Calendar c : times) {
+			System.out.printf("%tF\n", c);
+		}
+		System.out.println();
+		
+		Collections.sort(times);
+		
+		for (Calendar c : times) {
+			System.out.printf("%tF\n", c);
+		}
+		
+		System.out.println();
+		
+		
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

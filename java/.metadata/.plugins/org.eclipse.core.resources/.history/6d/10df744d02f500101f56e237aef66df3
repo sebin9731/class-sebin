@@ -1,0 +1,47 @@
+package com.test.java.service;
+
+import java.util.List;
+
+import com.test.java.repository.AddressDao;
+import com.test.java.ui.AddressUi;
+import com.test.javs.dto.AddressDto;
+
+public class AddressService {
+	
+	private AddressDao dao;
+	private AddressUi ui;
+	
+	public AddressService() {
+		dao = new AddressDao();
+		ui = new AddressUi();
+	}
+
+	public void list() {
+		
+		// 주소록 목록 보기
+		
+		
+		List<AddressDto> list = dao.list();
+		
+		ui.printList(list);
+			
+	}
+	
+	public void add() {
+		
+		// 주소록 추가하기
+		// - 파일 쓰기 > AddressDao 위임
+		
+		// 사용자 입력 > (전달) > Dao + 파일 쓰기 
+		
+	}
+
+	public void delete() {
+		
+	}
+
+	public void search() {
+		
+	}
+
+}

@@ -1,0 +1,97 @@
+package com.test.java.repository;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.test.javs.dto.AddressDto;
+
+// 파일 입출력 담당자
+// - DAO(Data Access Object) > 데이터를 직접 조작하는 업무 객체
+public class AddressDao {
+	
+	private final String PATH;
+	
+	public AddressDao() {
+		PATH = ".\\data\\address.txt";
+	}
+	
+	public List<AddressDto> list() {
+		
+		// addres.txt > (읽기) > 반환
+		try (BufferedReader reader = new BufferedReader(new FileReader(PATH))) {
+			
+			String line = null;
+			List<AddressDto> list = new ArrayList<AddressDto>();
+					
+			while ((line = reader.readLine()) != null) {
+				// Raw Data(line)
+				
+				// 파싱(Parsing)
+				String[] temp = line.split(",");
+				
+				// Raw Data > (포장) > AddressDto
+				AddressDto dto = new AddressDto();
+				
+				dto.setName(temp[0]);
+				dto.setAge(temp[1]);
+				dto.setGender(temp[2]);
+				dto.setTel(temp[3]);
+				dto.setAddress(temp[4]);
+				
+				list.add(dto);
+			}
+			
+			return list; // 주소록 목록
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+
+	public void add(AddressDto dto) {
+		
+		// Dto > (항목) > 파일에 쓰기
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(PATH, true))){
+			
+			String line = String.format("%s,%s,%s,%s,%s"
+										, dto.getName()
+										, dto.getAge()
+										, dto.getGender()
+										, dto.getTel()
+										, dto.getAddress());
+			
+			writer.write(line);
+			writer.write("\r\n");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+	public void delete(String name) {
+		
+		try {
+			// 파일에서 원하는 줄(한사람)을 삭제하기
+			// - 텍스트 입출력 > 삭제(수정)라는 행위 없음
+			BufferedReader reader = new BufferedReader(new FileReader(PATH));
+			
+			String wholeText = "";
+			String line = null;
+			
+			while ((line = reader.readLine()) != null) {
+				wholeText += line + "\r\n";
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+}

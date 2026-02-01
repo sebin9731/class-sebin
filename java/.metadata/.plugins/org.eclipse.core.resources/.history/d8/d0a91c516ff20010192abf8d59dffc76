@@ -1,0 +1,40 @@
+package com.test.java.collection;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+public class Ex64_LinkedList {
+	
+	public static void main(String[] args) {
+		
+		/*
+			
+			List 인터페이스
+			- ArrayList
+			- LinkedList
+			- 사용법은 동일하지만, 내부 구조가 다르다 > 사용 목적이 다르다.
+			
+		*/
+		
+		m1();
+	}
+
+	private static void m1() {
+		
+		ArrayList<Integer> list1 = new ArrayList<Integer>();
+		LinkedList<Integer> list2 = new LinkedList<Integer>();
+		
+		list1.add(100);
+		list1.add(200);
+		list1.add(300);
+		
+		list2.add(100);
+		list2.add(200);
+		list2.add(300);
+		
+		System.out.println(list1.size());
+		
+		
+	}
+
+}

@@ -1,0 +1,7 @@
+package com.test.javs.dto;
+
+// 계층과 계층 간에 데이터를 전달하는 (택배)상자
+// - 클래스 or HashMap or Record
+public class AddressDto {
+
+}

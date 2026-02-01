@@ -1,0 +1,61 @@
+package com.test.java.service;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.List;
+
+import com.test.java.repository.AddressDao;
+import com.test.java.ui.AddressUi;
+import com.test.javs.dto.AddressDto;
+
+public class AddressService {
+
+	public void list() {
+		
+		// 주소록 목록 보기
+		try {
+			
+			AddressDao dao = new AddressDao();
+			AddressUi ui = new AddressUi();
+			
+			List<AddressDto> list = dao.list();
+			
+			ui.printList(list);
+			
+			// 표 출력
+			System.out.println("------------------------------------------");
+			System.out.println("          1. 주소록 목록보기");
+			System.out.println("------------------------------------------");
+			System.out.println("[이름]\t[나이]\t[성별]\t[전화]\t[주소]");
+			
+			while ((line = reader.readLine()) != null) {
+				//System.out.println(line);
+				String[] temp = line.split(",");
+				
+				System.out.printf("%s\t%S\t%s\t%s\t%s\r\n", temp[0], temp[1], temp[2], temp[3], temp[4]);
+			}
+			
+			reader.close();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
+	public void add() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void delete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void search() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

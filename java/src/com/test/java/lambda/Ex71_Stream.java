@@ -1,0 +1,334 @@
+package com.test.java.lambda;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import com.test.data.Data;
+import com.test.data.Item;
+import com.test.data.User;
+
+public class Ex71_Stream {
+	
+	public static void main(String[] args) {
+		
+		/*
+		
+			자바의 스트림
+			1. 입출력
+				- 파일 입출력, 콘솔 입출력, 네트워크 입출력..
+			
+			2. 스트림
+				- Java 8(JDK 1.8) > 람다식 + 함수형 인터페이스 + 스트림
+				- 배열(컬렉션) 등의 탐색(조작) 기술
+				
+			
+			표준 API 함수형 인터페이스
+			
+			1. Consumer
+				- (매개변수) -> {}
+				
+			2. Supplier
+				- () -> {반환값}
+				
+			3. Function
+				- (매개변수) -> {반환값}
+				
+			4. Operator
+				- (매개변수) -> {반환값}
+				- 매개변수 자료형 == 반환값 자료형
+			
+			5. Predicate
+				- (매개변수) -> {반환값}
+				- 반환값이 boolean
+				
+				
+			스트림, Stream
+			- 특정 데이터 집합(소스)으로부터 생성
+			
+			
+			파이프, pipe
+			- 스트림 객체를 통해서 호출되는 메서드
+			- 중간 파이프 > 반환값이 Stream
+			- 최종 파이프 > 반환값이 Stream이 아닌 나머지
+			
+			최종 처리
+			- forEach(Consumer)
+			- 최종 파이프
+			- 앞의 스트림으로부터 데이터를 받아 최종 처리하는 메서드
+			
+			필터링
+			- filter(Predicate)
+			- 중간 파이프
+			- 앞의 스트림으로부터 데이터를 받아 조건에 맞는 요소만 남기고 맞지 않는 요소는 버린다.
+			
+			중복 제거
+			- distinct()
+			- 중간 파이프
+			- 앞의 스트림으로부터 데이터를 받아 중복값을 제거한다.
+		
+		*/
+		
+		//m1();
+		//m2();
+		//m3();
+		//m4();
+		m5();
+		
+		
+		
+	}//main
+
+	private static void m5() {
+		
+		List<Integer> nums = Data.getIntList(10);
+		System.out.println(nums);
+		System.out.println(nums.size());
+		System.out.println(nums.stream().count());
+		System.out.println();
+		
+		System.out.println(nums.stream().distinct().count());
+		System.out.println();
+		
+		
+		int[] nums2 = { 10, 20, 30, 10, 10, 10, 10 };
+		System.out.println(Arrays.stream(nums2).distinct().count());
+		System.out.println();
+		
+		
+		// filter, distinct 순서
+		Data.getStringList().stream()
+							.filter(word -> word.length() >= 5)
+							.distinct()
+							.forEach(word -> System.out.println(word));
+		System.out.println();
+		
+		Data.getStringList().stream()
+							.distinct()
+							.filter(word -> word.length() >= 5)
+							.forEach(word -> System.out.println(word));
+		System.out.println();
+		
+	}
+
+	private static void m4() {
+		
+		List<Integer> list = Data.getIntList(20);
+		System.out.println(list);
+		
+		// 짝수만 출력
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i) % 2 == 0) {
+				System.out.printf("%-4d", list.get(i));
+			}
+		}
+		System.out.println();
+		
+		
+		list.stream().forEach(n -> {
+			if (n % 2 == 0) {
+				System.out.printf("%-4d", n);
+			}
+		});
+		System.out.println();
+		
+		
+		list.stream()
+			.filter(n -> n % 2 == 0)
+			.forEach(n -> System.out.printf("%-4d", n));
+		System.out.println();
+		
+		
+		list.stream()
+			.filter(n -> n % 2 == 0 && n >= 50)
+			.forEach(n -> System.out.printf("%-4d", n));
+		System.out.println();
+		
+		
+		list.stream()
+			.filter(n -> n % 2 == 0)
+			.filter(n -> n >= 50)
+			.forEach(n -> System.out.printf("%-4d", n));
+		System.out.println();
+		
+		
+		Data.getStringList().stream()
+							.filter(word -> word.length() >= 5)
+							.filter(word -> word.startsWith("애"))
+							.forEach(word -> System.out.println(word));
+		System.out.println();
+		
+		
+		Data.getUserList().stream()
+						  .filter(user -> user.getGender() == 1)
+						  .filter(user -> user.getHeight() >= 180)
+						  .filter(user -> user.getWeight() >= 80)
+						  .forEach(user -> System.out.println(user));
+		System.out.println();
+			
+	}
+
+	private static void m3() {
+		
+		// 스트림을 얻어오는 방법
+		// - stream()/여러가지 메서드를 호출
+		// 1. 배열로부터
+		// 2. 컬렉션으로부터
+		// 3. 숫자 범위
+		// 4. 파일로부터
+		// 5. 디렉토리로부터
+		// 6. ..
+		
+		
+		// 1.
+		int[] nums1 = { 10, 20, 30 };
+		Arrays.stream(nums1).forEach(num -> System.out.println(num));
+		System.out.println();
+		
+		// 2.
+		List<Integer> nums2 = Data.getIntList(3);
+		nums2.stream().forEach(num -> System.out.println(num));
+		System.out.println();
+		
+		// 3.
+		// Stream<T>
+		// IntStream
+		
+		IntStream.range(1,  10).forEach(num -> System.out.println(num));
+		System.out.println();
+		
+		try {
+			
+			// 4. 파일 읽기
+			// - FileReader
+			// - Scanner
+			// - Stream
+			Path path = Paths.get(".\\data\\score.dat"); // File 참조 객체 역할
+			
+			Files.lines(path).forEach(line -> System.out.println(line));
+			
+			
+			// 5.
+			Path dir = Paths.get("C:\\dev\\eclipse");
+			Files.list(dir).forEach(p -> {
+				System.out.println(p.getFileName());
+				File file = p.toFile();
+				System.out.println(file.isFile());
+			}); //dir.listFiles()
+			
+		} catch (Exception e) {
+			System.out.println("Ex71_Stream.m3() 예외 발생");
+			e.printStackTrace();
+		}
+		
+	}
+
+	private static void m2() {
+		
+		// 배열(컬렉션) 탐색
+		List<String> txt1 = Data.getStringList(10);
+		System.out.println(txt1);
+		
+		
+		// 1. for문(while문)
+		for (int i = 0; i < txt1.size(); i++) {
+			System.out.printf(" %s ", txt1.get(i));
+		}
+		System.out.println();
+		
+		// 2. 향상된 for문
+		for (String s : txt1) {
+			System.out.printf(" %s ", s);
+		}
+		
+		// 3. iterator
+		Iterator<String> iter = txt1.iterator();
+		while (iter.hasNext()) {
+			System.out.printf(" %s ", iter.next());
+		}
+		System.out.println();
+		
+		// 4. stream
+		// 4.1 데이터 소스로부터 스트림을 얻기
+		Stream<String> stream = txt1.stream();
+		
+		// 4.2 스트림 객체를 통해서 배열의 요소에 접근 가능 + 조작
+		Consumer<String> c1 = s -> System.out.println("단어: " + s);
+		
+		// - 스트림으로부터 요소 하나를 꺼낸다.
+		// - 꺼낸 요소를 Consumer에게 전달한다.
+		// 	- c1.accept(문자열) 호출한다.
+		stream.forEach(c1);
+		System.out.println();
+		
+		txt1.stream().forEach(s -> System.out.println(s));
+		System.out.println();
+		
+		// 숫자 10개 > 제곱 출력
+		Data.getIntList(10)
+					.stream()
+					.forEach(num -> System.out.println(num * num));
+		
+		// Item 10개 > 정보 출력
+		Data.getItemList().stream().forEach(item -> {
+			System.out.println(item.getName());
+			System.out.println(item.getColor());
+			System.out.printf("%tF\n", item.getDate());
+			System.out.println();
+		});
+		
+	}
+
+	private static void m1() {
+		
+		int[] nums1 = Data.getIntArray();
+//		System.out.println(Arrays.toString(nums1));
+		
+		int[] nums2 = Data.getIntArray(10);
+//		System.out.println(Arrays.toString(nums2));
+		
+		List<Integer> nums3 = Data.getIntList();
+//		System.out.println(nums3);
+		
+		List<Integer> nums4 = Data.getIntList(10);
+//		System.out.println(nums4);
+		
+		String[] txt1 = Data.getStringArray();
+//		System.out.println(Arrays.toString(txt1));
+		
+		User[] ulist = Data.getUserArray();
+//		System.out.println(Arrays.toString(ulist));
+		
+		Item[] ilist = Data.getItemArray();
+		System.out.println(Arrays.toString(ilist));
+		
+	}
+	
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

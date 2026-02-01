@@ -1,0 +1,64 @@
+package com.test.java.ui;
+
+import java.util.List;
+import java.util.Scanner;
+
+import com.test.javs.dto.AddressDto;
+
+public class AddressUi {
+	
+	public static void mainMenu() {
+		System.out.println("=============================================");
+		System.out.println("                 💩 주소록💩");
+		System.out.println("=============================================");
+		
+		System.out.println("1. 주소록 목록보기");
+		System.out.println("2. 주소록 추가하기");
+		System.out.println("3. 주소록 삭제하기");
+		System.out.println("4. 주소록 검색하기");
+		System.out.println("5. 종료");
+		
+		System.out.print("선택(번호): ");
+	}
+	
+	public static void closeMessage() {
+		System.out.println();
+		System.out.println();
+		System.out.println("😉주소록을 종료합니다.");
+	}
+
+	public static void pause() {
+		// 각 메뉴 실행이 끝난 뒤 프로그램 일시 중지
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println();
+		System.out.println("😜계속 하시려면 엔터를 입력하세요.");
+		
+		scan.nextLine();
+		
+	}
+
+	public void printList(List<AddressDto> list) {
+		// 표 출력
+		System.out.println("-------------------------------------------------------------------");
+		System.out.println("                        1. 주소록 목록보기");
+		System.out.println("-------------------------------------------------------------------");
+		System.out.println("[이름]\t[나이]\t[성별]\t[전화]\t\t[주소]");
+		
+		// 이름 순으로 정렬
+		
+		list.sort((a, b) -> a.getName().compareTo(b.getName()));
+		
+		for (AddressDto dto : list)
+			System.out.printf("%s\t%5s\t%3s\t%s\t%s\r\n"
+								, dto.getName()
+								, dto.getAge()
+								, dto.getGender().equals("1") ? "남자" : "여자"
+								, dto.getTel()
+								, dto.getAddress());
+		}
+	
+	
+	
+
+}

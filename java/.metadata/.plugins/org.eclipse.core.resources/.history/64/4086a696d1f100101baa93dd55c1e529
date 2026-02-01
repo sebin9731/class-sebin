@@ -1,0 +1,318 @@
+package com.test.java;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Ex61_RegEx {
+	
+	public static void main(String[] args) {
+		
+		/*
+		
+			정규 표현식, Regular Expression
+			- 정규식
+			- 자바(X) > 독립된 표현식
+			- "특정 패턴"을 가지는 문자열을 검색하는 도구
+			
+			
+			정규 표현식 요소 > 문법
+			
+			1. x
+				- x는 임의의 문자 1개
+				ex) a > a
+				ex) abc > abc
+				ex) 홍길동 > 홍길동
+			2. .
+				- 임의의 문자 1개(와일드카드, whidcard)
+				ex) . > 문자 1개
+				ex) .. > 문자 2개
+				ex) a.c > abc, acc, adc, a가c, a1c
+				ex) a..c > abcc, acdc, aegc, a가나c, a12c
+				
+			3. 출현횟수
+				- 바로 앞의 문자(집합)의 출현 횟수를 표현
+				
+				3.1 생략
+					- 바로 앞의 문자(집합)의 출현 횟수가 생략X, 중복X
+					- 출현 횟수: 1
+					ex) a?bc > abc, bc, abbc, acb, adc, adbc, abccde, aabc
+					
+				3.2 ?
+					- 바로 앞의 문자(집합)의 출현 횟수가 생략O, 중복X
+					- 출현 횟수: 0~1
+					ex) a?bc > abc, bc, abbc, acb, adc, adbc, abccde, aabc
+					ex) 홍?길동 > 안녕~ 길동아~ 네 이름이 홍길동이지?
+					ex) 홍길?동 > 안녕~ 길동아~ 네 이름이 홍길동이지? 홍동
+					ex) 홍길동? > 안녕~ 길동아~ 네 이름이 홍길동이지? 홍길
+					ex) 자?바?코드, (자바)?코드 > 자바코드가 있습니다. 그런데 그 코드에 에러가 있어요.
+				
+				3.3 +
+					- 바로 앞의 문자(집합)의 출현 횟수가 생략X, 중복O
+					- 출현 횟수: 1~무한대
+					ex) a+bc > abc, bc, abbc, acb, adc, adbc, abccde, aabc, aaaabc, aaaaaaaaaaaaaaabc
+					ex) 홍+길동 > 안녕~ 길동아~ 네 이름이 홍길동이지? 홍홍길동, 홍홍홍홍홍길동
+					ex) (자바)+코드 > 자바코드가 있습니다. 그런데 그 코드에 에러가 있어요. 자바자바코드, 자바자바자바자바자바코드
+				
+				3.4 *
+					- 바로 앞의 문자(집합)의 출현 횟수가 생략O, 중복O
+					- 출현 횟수: 0~무한대
+					ex) a*bc > abc, bc, abbc, acb, adc, adbc, abccde, aabc, aaaabc, aaaaaaaaaaaaaaabc
+					ex) 홍*길동 > 안녕~ 길동아~ 네 이름이 홍길동이지? 홍홍길동, 홍홍홍홍홍길동
+					ex) (자바)*코드 > 자바코드가 있습니다. 그런데 그 코드에 에러가 있어요. 자바자바코드, 자바자바자바자바자바코드
+				
+				4. 선택, Choice
+					- [] 안에 문자 중 1개를 선택
+					
+					4.1 [값]
+						ex) [012] > 제 나이는 12살입니다. 제 동생은 11살이에요. 제 키는 160cm입니다. 몸무게는 51kg입니다. > [0 or 1 or 2]
+						ex) [나생은] > 제 나이는 12살입니다. 제 동생은 11살이에요. 제 키는 160cm입니다. 몸무게는 51kg입니다. > [나 or 생 or 은]
+						ex) [홍김최정박]길동 > 홍길동, 아무개, 하하하, 김길동, 최길동, 정길동, 박길동, 길동 > [홍김최정박]?길동 이렇게 섞어서도 사용 가능
+						ex) 연속된 숫자: [0123456789]+, [6574839201]+ > 연속된 숫자도 찾아줌
+						ex) 짝수만: [0123456789]*[02468]
+						ex) 홀수만: [0123456789]*[13579]
+						
+						ex) 주민등록번호 > 990115-1234567
+										   020910-2098765
+							[0123456789][0123456789][0123456789][0123456789][0123456789][0123456789]-[0123456789][0123456789][0123456789][0123456789][0123456789][0123456789][0123456789]
+							
+						ex) 전화번호 >
+							010-1234-5678
+							010-567-9876
+							011-1234-5678
+							016-9876-4956
+							019-4374-3423
+							
+							01[0169]-[0123456789]?[0123456789][0123456789][0123456789]-[0123456789][0123456789][0123456789][0123456789]
+						ex) 영어 소문자 단어 > [abcdefghijklmnopqrstuvwxyz]+
+						ex) 영어 대문자 단어 > [ABCDEFGHIJKLMNOPQRSTUVWXYZ]+
+							JAVA, ORACLE
+						ex) 영어 단어 > [ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz]+
+						ex) 한글 > [가각감..] 11,172자
+						
+							*** []에서 연속된 문자(코드)를 간단하게 표현하는 방법
+							ex) 숫자 > [0123456789] > [0-9]+
+							ex) 숫자 > [02468] != [0-8] = [012345678]
+							ex) 숫자 > [0123789] = [0-37-9]
+							ex) 숫자 > [036789] = [0-36-9]
+							ex) 영어소문자 > [a-z]
+							ex) 영어소문자 > [A-Z]
+							ex) 영문자 > [A-Za-z], [A-z] (X) - 연속된 문자가 아님
+							ex) 한글 > [가-힣]+, [가-깋]+
+								가, 강, 각, ㄱ, ㄲ, 강
+								
+								ㅅㄱ > 수고, 사과
+								[사-싷][가-깋]
+							
+							ex) 주민등록번호 > [0-9][0-9][0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9][0-9][0-9][0-9]
+							ex) 홍씨? > 홍길동, 홍순신, 홍철수, 홍영희, 홍아무개
+								홍[가-힣][가-힣][가-힣]?
+								
+							ex) 영문자 + 숫자 > [A-Za-z0-9]
+							ex) 영문자 + 숫자 + 한글 > [A-Za-z0-9가-힣]
+							ex) 식별자로 적합한 문자로만 구성된 단어
+								- 영어 + 숫자 + _
+								- 숫자 시작(X)
+								
+								[A-Za-z_][A-za-z0-9_]+
+								hong, hong123, hong123test, _test, 123hong(X), test
+					
+					4.2 [^값]
+						- 4.1의 부정형
+						- 나열된 값을 빼고 나머지 검색
+						
+						ex) [0-9]+ : 0~9까지 모든 숫자를 찾아라
+						ex) [^0-9]+ : 0~9까지 모든 숫자를 제외한 문자를 찾아라
+						
+				5. 출현횟수
+					- 바로 앞의 문자(집합)의 출현 횟수를 표현
+					- (생략, ?, +, *) > 더 세밀한 패턴 지정이 가능
+					
+					5.1 {n}
+						- n: 출현 횟수
+						ex) a{1}bc > ab, bc, abc, ac, abbc, abcc, aabc, aaabc
+						ex) a{2}bc > ab, bc, abc, ac, abbc, abcc, aabc, aaabc
+						ex) a{3}bc > ab, bc, abc, ac, abbc, abcc, aabc, aaabc
+					
+					5.2 {n.m}
+						- n: 최소 출현 횟수
+						- m: 최대 출현 횟수
+						ex) a{1,2}bc > ab, bc, abc, ac, abbc, abcc, aabc, aaabc
+						ex) a{2,3}bc > ab, bc, abc, ac, abbc, abcc, aabc, aaabc
+						ex) a{0,1}bc == a?bc
+					
+					5.3 {n}
+						- n: 최소 출현 횟수
+						- m 생략: 무한대
+						ex) a{1,}bc == a+bc
+					    	a{0,}bc == a*bc
+					    	a{0,1}bc == a?bc
+					
+						ex) 주민등록번호
+							[0-9]{6}-[0-9]{7]
+							
+						ex) 전화번호
+							010-[0-9]{3,4}-[0-9]{4}
+						
+						ex) 홍씨? 이름(1~5)
+							홍[가-힣]{1,5}
+							
+					6. 처음과 끝
+						- 입력 컨트롤 or 입력값 등을 대상으로 사용
+						
+						6.1 ^
+							- 뒤의 표현으로 반드시 시작
+							ex) ^홍[가-힣]{2,3} > 홍길동, 홍길철수, 홍순희, 홍아지
+							- str.startsWith("홍")
+							
+						6.2 $
+							- 앞의 표현으로 반드시 끝
+							- str.endsWith("동")
+							
+					7. 줄임표현
+						
+						7.1 \d, \D
+							- Digital(숫자)
+							- [0-9] == \d
+							- [^0-9] == \D
+							
+							ex) [0-9]{6}-[0-9]{7}
+							ex) \d{6}-\d{7}
+							
+						7.2 \w, \W
+							- Word > 영어대소문자 + 숫자 + _
+							ex) [A-Za-z0-9_]{2,5}
+							ex) \w{2,5}
+							
+							ex) [^A-Za-z0-9_]{2,5] == \W{2,5}
+						
+						7.3 \s, \S
+							- 공백 문자(스페이스, 엔터, 탭)
+							ex)  +
+							ex) \s+
+							ex) \S+
+							
+							
+			정규식 생성 > 쉬움
+			내가 원하는 패턴? > 쉬움~어려움
+			
+			이메일
+			- 아이디@도메인
+			- 아이디 > 어떤 패턴?
+			- 도메인 > 어떤 패턴?
+			
+			[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}
+			
+			test@gmail.com
+			test.aaaa2222@gmail.com
+			_aaa+bbb@daum.net
+			
+		*/
+		
+		
+		//m1();
+		//m2();
+		m3();
+		
+		
+	}//main
+
+	private static void m3() {
+		// 자바
+		// 1. 여러 메서드가 인자로 정규식을 지원
+		// 2. 정규식 객체 > 사용
+		
+		// 정규식 클래스
+		String txt = "안녕하세요. 홍길동입니다. 제 연락처는 010-1234-5678입니다. 혹시 이 번호로 연락이 안 되면 010-5678-1234로 연락주세요.";
+		
+		//txt 안에 전화번호가 있는지?
+		String regex = "[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}";
+		
+		// 정규 표현식 객체
+		Pattern p1 = Pattern.compile(regex);
+		
+		// 검색 + 결과
+		Matcher m1 = p1.matcher(txt);
+		
+		// 결과 확인
+		//System.out.println(m1.find());
+		
+//		if (m1.find()) {
+//			System.out.println("전화번호를 발견했습니다.");
+//		} else {
+//			System.out.println("전화번호가 없습니다.");
+//		}
+		
+//		System.out.println(m1.find()); // true > 첫 번째 전화번호
+//		System.out.println(m1.find()); // true > 두 번째 전화번호
+//		System.out.println(m1.find()); // false > 세 번째 전화번호(없음)
+		
+		// 전화번호 몇 개?
+//		int count = 0;
+//		
+//		while (m1.find()) {
+//			count++;
+//		}
+//		
+//		System.out.println("전화번호 총 개수: " + count);
+		
+		
+		while (m1.find()) {
+			System.out.println("[전화번호 발견]");
+			System.out.println("전화번호: " + m1.group());
+		}
+		
+		
+	}
+
+	private static void m2() {
+		
+		String names = "홍길동,아무개,,강아지.고양이 병아리";
+		
+		String[] list = names.split("[,\\.\\s]+");
+		
+		for (String name : list) {
+			System.out.println(name);
+		}
+		
+		System.out.println("종료");
+		
+	}
+
+	private static void m1() {
+		
+		// 자바
+		// 1. 여러 메서드가 인자로 정규식을 지원
+		// 2. 정규식 객체 > 사용
+		
+		// 게시판 글쓰기 > 개인정보(전화번호) 마스킹
+		String txt = "안녕하세요. 홍길동입니다. 제 연락처는 010-1234-5678입니다. 혹시 이 번호로 연락이 안 되면 010-5678-1234로 연락주세요. 010.5555.6666 010*5555*6666";
+		
+		//System.out.println(txt.replace("010-1234-5678", "XXX-XXXX-XXXX")); //X
+		
+		System.out.println(txt.replaceAll("010-[0-9]{3,4}-[0-9]{4}", "XXX-XXXX-XXXX")
+							  .replaceAll("010\\.[0-9]{3,4}\\.[0-9]{4}", "XXX-XXXX-XXXX")); // "."은 모든 글자를 뜻함
+		
+		System.out.println(txt.replaceFirst("010-[0-9]{3,4}-[0-9]{4}", "XXX-XXXX-XXXX"));
+		
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
