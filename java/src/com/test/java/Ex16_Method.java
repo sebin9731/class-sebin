@@ -7,7 +7,7 @@ public class Ex16_Method {
 	//	- 이름이 예약어(main)
 	//	- 개발자 호출(X), 프로그램이 실행되면 자바가 호출하는 메서드
 	//	- 프로그램의 시작점(Entry Point)
-	//	- 프로그램의 종착점(Ent Point)
+	//	- 프로그램의 종착점(Entry Point)
 	
 	public static void main(String[] args) {
 		

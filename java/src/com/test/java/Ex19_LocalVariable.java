@@ -44,7 +44,7 @@ public class Ex19_LocalVariable {
 		//m2();
 		
 		
-		m2();
+		m1();
 		m2();
 		
 	}//main
